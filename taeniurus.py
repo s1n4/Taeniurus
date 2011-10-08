@@ -60,7 +60,7 @@ def MainConf() :
 	conf = ConfigParser.ConfigParser()
 	conf.file_name = 'taeniurus.cfg'
 	conf.read('taeniurus.cfg')
-	info_items = {'nick' : 'Taeniurus', 'uname' : 'taeniurus', 'realname' : 'http://github.com/s1n4/Taeniurus', 'server' : 'irc.freenode.net', 'port' : '8001', 'channel' : '#darkprocess'}
+	info_items = {'nick' : 'Taeniurus', 'uname' : 'taeniurus', 'realname' : 'http://github.com/s1n4/Taeniurus', 'password' : '', 'server' : 'irc.freenode.net', 'port' : '8001', 'channel' : '#xprous'}
 	oper_items = {'user' : 'admin', 'passwd' : hashlib.md5('admin').hexdigest()}
 
 	if conf.has_section('info') :
