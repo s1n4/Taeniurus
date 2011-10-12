@@ -22,12 +22,12 @@ from multiprocessing import Process
 import ConfigParser, hashlib, os, socket, sys, time
 
 
-def Daemon() :
-	#This is for background process, this will put its process into background
-	#and writes the bot pid in a file with the name of 'taeniurus.pid'
+def Daemon(pidfile) :
+	#This attachs the process to background
+	#and writes the pid in a file with the name of 'taeniurus.pid'
 	pid = os.fork()
 	if pid != 0 :
-		botpid = file('taeniurus.pid', 'w')
+		botpid = file(pidfile, 'w')
 		botpid.write(str(pid))
 		print 'Taeniurus PID: \033[1m\033[92m%d\033[0m' % pid
 		botpid.close()
@@ -36,7 +36,7 @@ def Daemon() :
 
 def Header(server, port) :
 	try :
-		readme = open('README')
+		readme = file('README')
 		for line in xrange(11) :
 			sys.stdout.write('\033[1m'+readme.readline()+'\033[0m')
 			sys.stdout.flush()
@@ -52,15 +52,16 @@ def Header(server, port) :
 
 
 def SaveConf(conf) :
-	with open(conf.file_name, 'w') as configfile :
+	with file(conf._file, 'w') as configfile :
 		conf.write(configfile)
 
 
 def MainConf() :
 	conf = ConfigParser.ConfigParser()
-	conf.file_name = 'taeniurus.cfg'
+	conf._file = 'taeniurus.cfg'
 	conf.read('taeniurus.cfg')
-	info_items = {'nick' : 'Taeniurus', 'uname' : 'taeniurus', 'realname' : 'http://github.com/s1n4/Taeniurus', 'password' : '', 'server' : 'irc.freenode.net', 'port' : '8001', 'channel' : '#xprous'}
+	info_items = {'nick' : 'Taeniurus', 'uname' : 'taeniurus', 'realname' : 'http://github.com/s1n4/Taeniurus', 
+                      'password' : '', 'server' : 'irc.freenode.net', 'port' : '8001', 'channel' : '#xprous'}
 	oper_items = {'user' : 'admin', 'passwd' : hashlib.md5('admin').hexdigest()}
 
 	if conf.has_section('info') :
@@ -93,10 +94,12 @@ def main() :
 	MainConf()
 	opers = {}
 	mainconf, process, cmds = (ConfigParser.RawConfigParser(), ConfigParser.RawConfigParser(), ConfigParser.RawConfigParser())
-	mainconf.read('taeniurus.cfg')
-	process.read('process.cfg')
-	cmds.read('cmds.cfg')
-	mainconf.file_name, process.file_name, cmds.file_name = ('taeniurus.cfg', 'process.cfg', 'cmds.cfg')
+        mainconf._file, process._file, cmds._file = ('taeniurus.cfg', 'process.cfg', 'cmds.cfg')
+	mainconf.read(mainconf._file)
+	process.read(process._file)
+	cmds.read(cmds._file)
+        pidfile = mainconf.get('info', 'pid file')
+	logspath = mainconf.get('info', 'logs path')
 	client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	irc = IRC(client)
 	bgproc = Process(target=Header, args=(irc.server, irc.port,))
@@ -109,7 +112,7 @@ def main() :
 	print '\nConnected successfully!'
 	print 'Connection: \033[1m\033[92m%s:%d\033[0m' % (irc.server, irc.port)
 	print 'Channel: \033[1m\033[92m%s\033[0m' % irc.channel
-	Daemon()
+	Daemon(pidfile)
 
 	AcDen = 'irc.notice("Access Is Denied!", nick)'
 	DoneMsg = 'irc.notice("It\'s Done.", nick)'
@@ -124,8 +127,8 @@ def main() :
 						exec process.get(section, 'code')
 					except :
 						for op in opers :
-							irc.notice('A problem in process config file is detected!', op)
-							irc.notice('File: %s' % process.file_name, op)
+							irc.notice('A problem in process config file!', op)
+							irc.notice('File: %s' % process._file, op)
 							irc.notice('Section: %s' % section, op)
 
 			if arg :
