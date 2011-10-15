@@ -36,9 +36,10 @@ class IRC :
 		#this works such as /join in irc clients
 		self.socket.send('JOIN %s\r\n' % channel)
 
-	def kick(self, nick, resson) :
+	def kick(self, nick, reason=None) :
 		#this works such as /kick in irc clients
 		#kick(user, 'reason')
+		if not reason : reason = nick
 		self.socket.send('KICK %s %s :%s\r\n' % (self.channel, nick, reason))
 
 
@@ -186,6 +187,29 @@ class IRC :
 	def voice(self, nick) :
 		#this gives voice mode such as /voice in irc clients
 		self.socket.send('MODE %s +v %s\r\n' % (self.channel, nick))
+
+
+	def whois(self, nick) :
+		#this returns a list variable of nick you've whoised
+		self.socket.send('WHOIS %s\r\n' % nick)
+		data = self.socket.recv(1024)
+		whoislst = []
+
+		if len(data.split()) >= 4 :
+			datax = ' '.join(data.split()[4:])
+			datay = datax[1:] if datax[0] == ':' else datax
+			whoislst = [datay]
+
+		while 'end of /whois list' not in data.lower() :
+			data = self.socket.recv(1024)
+
+			for i in data.split('\n') :
+				if len(i.split()) >= 4 :
+					datax = ' '.join(i.split()[4:])
+					datay = datax[1:] if datax[0] == ':' else datax
+					whoislst.append(datay)
+
+		if whoislst : return whoislst
 
 
 	def connect(self, socket=None, server=None, channel=None) :
