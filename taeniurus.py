@@ -35,15 +35,18 @@ def Daemon(pidfile) :
 
 
 def Header(server, port) :
-	try :
-		readme = file('README')
-		for line in xrange(11) :
-			sys.stdout.write('\033[1m'+readme.readline()+'\033[0m')
-			sys.stdout.flush()
-			time.sleep(0.01)
-	except :
-		pass
+	print r'''
+___________                        .__
+\__    ___/_____     ____    ____  |__| __ __ _______  __ __  ______
+  |    |   \__  \  _/ __ \  /    \ |  ||  |  \\_  __ \|  |  \/  ___/
+  |    |    / __ \_\  ___/ |   |  \|  ||  |  / |  | \/|  |  /\___ \
+  |____|   (____  / \___  >|___|  /|__||____/  |__|   |____//____  > 
+                \/      \/      \/                               \/  IRC Bot
 
+Developer:	s1n4 (s1n4@live.com)
+Ideas by:	arda7an, sdk, hamid rostami
+License:	GPLv3
+'''
 	print '\rConnecting to %s:%d ' % (server, port),
 	for c in xrange(30) :
 		sys.stdout.write('.')
