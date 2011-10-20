@@ -22,6 +22,10 @@ from multiprocessing import Process
 import ConfigParser, hashlib, os, socket, sys, time
 
 
+def Bash(command) :
+	return os.popen(command).read()
+
+
 def Daemon(pidfile) :
 	#This attachs the process to background
 	#and writes the pid in a file with the name of 'taeniurus.pid'
