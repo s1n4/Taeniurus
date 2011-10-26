@@ -22,13 +22,23 @@ from multiprocessing import Process
 import ConfigParser, hashlib, os, socket, sys, time
 
 
+class Error(Exception) :
+	#this class will store some exception errors and how them occurred
+	def __init__(self, value, path) :
+		errors = file(path+'errors.log', 'a')
+		errors.write(value)
+		errors.close()
+
+	def __str__(self) :
+		return "Oops!, something wrong is occurred and saved in the '%s'errors.log file" % self.path
+
 def Bash(command) :
 	return os.popen(command).read()
 
 
 def Daemon(pidfile) :
 	#This attachs the process to background
-	#and writes the pid in a file with the name of 'taeniurus.pid'
+	#and writes the pid in a file with the name 'taeniurus.pid' (as default)
 	pid = os.fork()
 	if pid != 0 :
 		botpid = file(pidfile, 'w')
@@ -67,8 +77,8 @@ def MainConf() :
 	conf = ConfigParser.ConfigParser()
 	conf._file = 'taeniurus.cfg'
 	conf.read('taeniurus.cfg')
-	info_items = {'nick' : 'Taeniurus', 'uname' : 'taeniurus', 'realname' : 'http://github.com/s1n4/Taeniurus', 
-                      'password' : '', 'server' : 'irc.freenode.net', 'port' : '8001', 'channel' : '#xprous'}
+	info_items = {'nick' : 'Taeniurus', 'uname' : 'taeniurus', 'realname' : 'http://github.com/s1n4/Taeniurus',
+		      'server' : 'irc.freenode.net', 'port' : '8001', 'channel' : '#xprous'}
 	oper_items = {'user' : 'admin', 'passwd' : hashlib.md5('admin').hexdigest()}
 
 	if conf.has_section('info') :
@@ -162,24 +172,19 @@ def main() :
 						exec cmds.get(args[0], 'code')
 
 				except :
-					irc.notice('It\'s either an arguments error or I\'m unable to do it.', nick)
+					irc.notice('It\'s either an argument error or I\'m unable to do it.', nick)
 
 				if args[0] == '!quit' and user in opers.values() :
-					irc.quit("Killed!")
+					qmsg = ' '.join(args[1:]) if len(args) >= 2 else 'Leaving'
+					irc.quit(qmsg)
 					import signal
 					pid = os.getpid()
 					os.kill(int(pid), signal.SIGKILL)
 
 		except :
-			try :
-				#this will report us some errors
-				from modules.report import bugz
-				proc = Process(target=bugz, args=(irc, data))
-				proc.start()
-
-			except :
-				pass
+			raise Error(data, logspath)
 
 
 main()
 
+#EOF
