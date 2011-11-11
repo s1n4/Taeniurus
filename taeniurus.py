@@ -19,7 +19,7 @@
 
 from modules.irc import IRC
 from multiprocessing import Process
-import ConfigParser, hashlib, os, socket, sys, time
+import ConfigParser, hashlib, os, sys, time
 
 
 class Error(Exception) :
@@ -117,8 +117,7 @@ def main() :
 	cmds.read(cmds._file)
         pidfile = mainconf.get('info', 'pid file')
 	logspath = mainconf.get('info', 'logs path')
-	client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	irc = IRC(client)
+	irc = IRC()
 	bgproc = Process(target=Header, args=(irc.server, irc.port,))
 	bgproc.start()
 	client = irc.connect()

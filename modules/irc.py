@@ -4,7 +4,7 @@
 #Project: Taeniurus
 #IRC Module
 
-import ConfigParser, re, time
+import ConfigParser, re, socket, time
 
 class IRC :
 	P = 'PRIVMSG'
@@ -13,11 +13,11 @@ class IRC :
 	J = 'JOIN'
 	I = 'INVITE'
 
-	def __init__(self, socket) :
+	def __init__(self) :
 		conf = ConfigParser.ConfigParser()
 		conf.read('taeniurus.cfg')
 		
-		self.socket   = socket
+		self.socket   = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.mynick   = conf.get('info', 'nick')
 		self.uname    = conf.get('info', 'uname')
 		self.rname    = conf.get('info', 'realname')
