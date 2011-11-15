@@ -8,7 +8,7 @@
 
 ***
 
-> Hello, This is a project with the name Taeniurus.
+&nbsp; &nbsp; &nbsp;Hello, This is a project with the name Taeniurus.
 
 An irc bot that you can configure it or anything else you'd like to use (writing your own commands etc).
 
