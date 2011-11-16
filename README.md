@@ -120,4 +120,19 @@ Also, a important thing to write a command is the variable `args`.
 
 It will give nickname a mode on the channel which is voice (+).
 
-> Also, you can write anything else.
+_Also, you can write anything else._
+
+***
+
+### How to write a job process
+
+&nbsp;&nbsp;&nbsp;&nbsp;As I've already explain in the section TODO, there is a command to add your own process.
+
+To understanding it, I recommend getting a look at the following example.
+
+    [tw]
+    code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)
+
+Now I will edit the process `tw`:
+    !delproc tw
+    !addproc tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
