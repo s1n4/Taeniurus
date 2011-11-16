@@ -1,4 +1,4 @@
-<img src="http://ubuntuone.com/3rPdv4GGW9r6ObIaiz2fVK" />
+![Taeniurus](http://ubuntuone.com/3rPdv4GGW9r6ObIaiz2fVK)
 
 **Developer: s1n4 (s1n4@live.com)**
 
@@ -27,7 +27,6 @@ _Taeniurus Copyright (C) 2011 s1n4_
 ***
 
 ### Welcome to the "Taeniurus" Project Wiki.
-![Taeniurus](http://ardavanpc.persiangig.com/Taeniurus.png)
 ### Project Taeniurus Information:
 &nbsp;&nbsp;&nbsp;&nbsp;Taeniurus is an IRC bot written in the python programming language.
 
