@@ -108,7 +108,7 @@ Please note that there is an access level per command/user, which are `oper` and
     [log]
     code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime('%H:%M')+' <'+nick+'> '+arg+'\n'); log.close()
 
-`args`, A list variable to recognize commands and their arguments, for instance: `!bach echo "hello"`. args[0] would be the command `!bash`, args[1] would be `echo` and args[2] would be `"hello"` as well, in this example.
+`args`, A list variable to recognize commands and their arguments, for instance: `!bash echo "hello"`. args[0] would be the command `!bash`, args[1] would be `echo` and args[2] would be `"hello"` as well, in this instance.
 
 > Also, an important thing to write a command is the variable args.
 
