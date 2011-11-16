@@ -62,7 +62,7 @@ Please note that there is an access level per command/user, there are `oper` and
 
 ***
 
-### <a name="#TODO">TODO</a>
+### <a name="TODO">TODO</a>
 &nbsp;&nbsp;&nbsp;&nbsp;There are several commands and I'll explain them.
 
 `!quote`, As it's recognizable, it works like `/quote` in irc clients which sends a raw data to the network without doing anything else.
@@ -129,7 +129,7 @@ _Also, you can write anything else._
 
 ### How to write a process for the bot
 
-&nbsp;&nbsp;&nbsp;&nbsp;As I've already explain in the <a href="#TODO">TODO</a> section, there is a command to add your own process.
+&nbsp;&nbsp;&nbsp;&nbsp;As I've already explain in the [TODO](#TODO) section, there is a command to add your own process.
 
 To understanding it, I recommend getting a look at the following example.
 
