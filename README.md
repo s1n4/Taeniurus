@@ -48,7 +48,7 @@ The name was chosen because I really like snakes!
 ***
 
 ### <a name="Stuff you should do before everything">Stuff you should do before everything</a>
-&nbsp;&nbsp;&nbsp;&nbsp;Before running it you should change something in the taeniurus.cfg file, otherwise it will connect to the default server and join the default channel which are irc.freenode.net and #xprous
+&nbsp;&nbsp;&nbsp;&nbsp;Before running it you should change something in the _taeniurus.cfg_ file, otherwise it will connect to the default server and join the default channel which are irc.freenode.net and #xprous
 
 ![taeniurus.cfg](http://ubuntuone.com/3ejammcytt9Y7iWbQTHhVD)
 
@@ -149,4 +149,6 @@ Now I will edit the process _tw_ from the irc:
     !delproc tw
     !addproc tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
 
-_**I hope it's useful to you!**_
+&nbsp;
+
+_**I hope it's useful!**_
