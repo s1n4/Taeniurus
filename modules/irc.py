@@ -28,17 +28,17 @@ class IRC :
 
 
 	def chmode(self, mode) :
-		#this works such as /mode but for channel not user
+		#this works like /mode but for a channel not user
 		socket.send('MODE %s %s\r\n' % (self.channel, mode))
 
 
 	def join(self, socket=None, channel=None) :
-		#this works such as /join in irc clients
+		#this works like /join in irc clients
 		self.socket.send('JOIN %s\r\n' % channel)
 
 	def kick(self, nick, reason=None) :
-		#this works such as /kick in irc clients
-		#kick(user, 'reason')
+		#this works like /kick in irc clients
+		#e.g. kick(user, 'reason')
 		if not reason : reason = nick
 		self.socket.send('KICK %s %s :%s\r\n' % (self.channel, nick, reason))
 
@@ -74,7 +74,7 @@ class IRC :
 
 
 	def nickname(self, data) :
-		#this function retuens nick of who on the channel is speaking.
+		#this function retuens nick of that who is talking on the channel.
 		if not data : 
 			exit()
 		data = data.replace(':', '').split()
@@ -82,7 +82,7 @@ class IRC :
 
 
 	def notice(self, msg, to=None) :
-		#this works such as /notice in irc clients.
+		#this works like /notice in irc clients.
 		if to == None :
 			to = self.channel
 		self.socket.send('NOTICE %s :%s\r\n' % (to, msg))
@@ -94,7 +94,7 @@ class IRC :
 
 
 	def part(self, channel, msg) :
-		#this works such as /part in irc clients.
+		#this works like /part in irc clients.
 		self.socket.send('PART %s :%s\r\n' % (channel, msg))
 
 
@@ -177,11 +177,11 @@ class IRC :
 		self.socket.send('QUIT :%s\r\n' % qmsg)
 
 
-	def umode(self, channel, mode, nick) :
+	def umode(self, mode, nick) :
 		#this sets a mode for a nick on the channel
-		#such as /mode but for user not channel
-		#umode('#darkprocess', '+v', nick) for example
-		self.socket.send('MODE %s %s %s\r\n' % (channel, mode, nick))
+		#like /mode but for a user not channel
+		#e.g. umode('+v', nick)
+		self.socket.send('MODE %s %s %s\r\n' % (self.channel, mode, nick))
 
 
 	def voice(self, nick) :
@@ -235,7 +235,7 @@ class IRC :
 						break
 
 			if 'End of' in data :
-				#It will be identified for NickServ if you putted the nickserv password into config file
+				#It will be identified for NickServ if you've putted the nickserv password into config file
 				if self.password :
 					time.sleep(1)
 					self.pm('IDENTIFY %s' % self.password, 'NickServ')
