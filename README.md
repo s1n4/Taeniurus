@@ -43,12 +43,12 @@ I DO NOT take any blames on harms to your computer etc.**
 ***
 
 ### Stuff you should do before everything:
-Before running it you should change something in the taeniurus.cfg file, otherwise it will connect to the default server and join the default channel which are irc.freenode.net and #xprous
+&nbsp;&nbsp;&nbsp;&nbsp;Before running it you should change something in the taeniurus.cfg file, otherwise it will connect to the default server and join the default channel which are irc.freenode.net and #xprous
 
 ![taeniurus.cfg](http://ubuntuone.com/3ejammcytt9Y7iWbQTHhVD)
 
 ### Note:
-After running it you should identify yourself for the bot with the `!oper` command: `!oper user password`, from the irc channel you've joined or via private message.
+&nbsp;&nbsp;&nbsp;&nbsp;After running it you should identify yourself for the bot with the `!oper` command: `!oper user password`, from the irc channel you've joined or via private message.
 
 The default user and password are `admin`.
 When you're identified, you can change the user and the password with the `!cguser` and the `!passwd` commands: `!cguser newuser`, `!passwd newpassword`
@@ -63,7 +63,7 @@ Please note that there is an access level per command/user, there are `oper` and
 ***
 
 ### TODO
-There are several commands and I'll explain them.
+&nbsp;&nbsp;&nbsp;&nbsp;There are several commands and I'll explain them.
 
 `!quote`, As it's recognizable, it works like `/quote` in irc clients which sends a raw data to the network without doing anything else.
 
@@ -92,3 +92,32 @@ There are several commands and I'll explain them.
 `!bash`, To do a shell command from the irc, It will show you output of the command as well.
 
 ***
+
+### How to write a command
+&nbsp;&nbsp;&nbsp;&nbsp;As you've seen the above, there is a command to add your own command, but you should know some of variables which exist.
+
+    arg, nick, user, Wjoined, window = irc.process(data)
+
+`arg`, A string variable to storing logs (have a look at `process.cfg` file and the `[log]` section for more information), and something else.
+
+`args`, Which is a list variable to recognize commands and their arguments, for instance: `!bach echo "hello"`. `args[0]` would be the command `!bash`, `args[1]` would be `echo` and `args[2]` would be `"hello"` as well, in this example.
+
+Also, a important thing to write a command is the variable `args`.
+
+`nick`, The nick of that who is talking on the channel/to the bot.
+
+`user`, It contains: `nick@hostname` of that who is talking.
+
+`Wjoined`, It's a boolean variable (True or False), It will be True for when a user has joined the channel.
+
+**I'd like to explain some example to learning how to write a command:**
+
+To do: `!addcmd [!cmd name] [access level (oper/anything else)] [python code]`
+
+e.g. `!addcmd !voice oper irc.voice(args[1])`
+
+usage: `!voice nickname`
+
+It will give nickname a mode on the channel which is voice (+).
+
+Also, you can write anything else.
