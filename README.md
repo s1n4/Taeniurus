@@ -40,12 +40,9 @@ Taeniurus is also a snake ([Orthriophis taeniurus](http://en.wikipedia.org/wiki/
 
 The name was chosen because I really like snakes!
 
-The project is licensed under the GNU General Public License Version 3 (http://www.gnu.org/licenses/gpl-3.0.html).
-
 **_The main idea on creating this Project is only Learning and nothing else_**.
 
-> **As stated in the license, I DO NOT guarantee that this will work. Use at your own risk.
-I DO NOT take any blames on harms to your computer etc.**
+> **Use at your own risk, I DO NOT take any blames on harms to your computer etc.**
 
 
 ***
@@ -61,31 +58,31 @@ I DO NOT take any blames on harms to your computer etc.**
 The default user and password are `admin`.
 When you're identified, you can change the user and the password with the `!cguser` and the `!passwd` commands: `!cguser newuser`, `!passwd newpassword`
 
-Taeniurus gives that who is using commands from irc and finds the code of command in the cmds.cfg file then, will run the code with 'exec' statement.
+Taeniurus gives that who is using commands from irc and finds the code of command in the _cmds.cfg_ file then, will run the code with _exec_ statement.
 
-> It works with the ConfigParser module which is used to parsing configuration files like `.cfg, .ini`.
+> It works with the ConfigParser module which is used to parsing configuration files like _.cfg, .ini_
 
-Please note that there is an access level per command/user, there are `oper` and `*`, if a command access's level is `oper` only an user who is identified for the bot as an oper can use the command, and `*` would be for all users.
+Please note that there is an access level per command/user, which are `oper` and `*`, if a command access's level is `oper` only an user who is identified for the bot as an oper can use the command, and `*` would be for all users.
 
 
 ***
 
 ### <a name="TODO">TODO</a>
-&nbsp;&nbsp;&nbsp;&nbsp;There are several commands and I'll explain them.
+&nbsp;&nbsp;&nbsp;&nbsp;There are several commands as the default with the following description.
 
-`!quote`, As it's recognizable, it works like `/quote` in irc clients which sends a raw data to the network without doing anything else.
+`!quote`, As it's recognizable, it works like `/quote` in irc clients, It sends a raw data to the network without doing anything else.
 
-`!addcmd`, It lets you to write your own commands which will be added into the `cmds.cfg` file.
+`!addcmd`, It lets you to write your own command which will be added into the _cmds.cfg_ file.
 
 `!delcmd`, You will be able to delete the command you want to.
 
 `!addproc`, You can add your own process for when irc is running.
 
-`!delproc`, You can delete the process which is stored in the `process.cfg` file.
+`!delproc`, You can delete the process which is stored in the _process.cfg_ file.
 
-`!cguser`, To change the username which is stored in the `taeniurus.cfg` file.
+`!cguser`, To change the username which is stored in the _taeniurus.cfg_ file.
 
-`!passwd`, To change the password which is stored in the `taeniurus.cfg` file, password will encrypt with the md5 hash algorithm.
+`!passwd`, To change the password which is stored in the _taeniurus.cfg_ file, password will encrypt with the md5 hash algorithm.
 
 `!show_cmds`, To see all commands.
 
@@ -102,7 +99,7 @@ Please note that there is an access level per command/user, there are `oper` and
 ***
 
 ### <a name="How to write a command">How to write a command</a>
-&nbsp;&nbsp;&nbsp;&nbsp;As you've seen the above, there is a command to add your own command, but you should know some of variables which exist.
+&nbsp;&nbsp;&nbsp;&nbsp;As you've seen the [TODO](#TODO) section, there is a command to add your own command, but you should know some of variables which exist.
 
     arg, nick, user, Wjoined, window = irc.process(data)
 
@@ -111,17 +108,19 @@ Please note that there is an access level per command/user, there are `oper` and
     [log]
     code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime('%H:%M')+' <'+nick+'> '+arg+'\n'); log.close()
 
-`args`, Which is a list variable to recognize commands and their arguments, for instance: `!bach echo "hello"`. args[0] would be the command `!bash`, args[1] would be `echo` and args[2] would be `"hello"` as well, in this example.
+`args`, A list variable to recognize commands and their arguments, for instance: `!bach echo "hello"`. args[0] would be the command `!bash`, args[1] would be `echo` and args[2] would be `"hello"` as well, in this example.
 
-Also, an important thing to write a command is the variable args.
+> Also, an important thing to write a command is the variable args.
 
-`nick`, The nick of that who is talking on the channel/to the bot.
+`nick`, The nick of that who is talking on the channel or to the bot.
 
 `user`, It contains: `nick@hostname` of that who is talking.
 
-`Wjoined`, It's a boolean variable (True or False), It will be True for when a user has joined the channel.
+`Wjoined`, A boolean variable (True or False), It will be True for when a user has joined the channel.
 
-.....................................................................................................................................................
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;Now you will be able to add a command.
 
 **To do:** `!addcmd [!cmd name] [access level (oper/anything else)] [python code]`
 
@@ -131,7 +130,8 @@ Also, an important thing to write a command is the variable args.
 
 It will give nickname a mode on the channel which is voice (+).
 
-_Also, you can write anything else._
+
+> Also, you can add anything else as a command.
 
 ***
 
@@ -144,7 +144,7 @@ To understanding it, I recommend getting a look at the following example.
     [tw]
     code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)
 
-Now I will edit the process tw from the irc:
+Now I will edit the process _tw_ from the irc:
 
     !delproc tw
     !addproc tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
