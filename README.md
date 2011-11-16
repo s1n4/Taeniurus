@@ -110,14 +110,14 @@ Also, a important thing to write a command is the variable `args`.
 
 `Wjoined`, It's a boolean variable (True or False), It will be True for when a user has joined the channel.
 
-**I'd like to explain some example to learning how to write a command:**
+.....................................................................................................................................................
 
-To do: `!addcmd [!cmd name] [access level (oper/anything else)] [python code]`
+**To do:** `!addcmd [!cmd name] [access level (oper/anything else)] [python code]`
 
-e.g. `!addcmd !voice oper irc.voice(args[1])`
+**e.g.** `!addcmd !voice oper irc.voice(args[1])`
 
-usage: `!voice nickname`
+**usage:** `!voice nickname`
 
 It will give nickname a mode on the channel which is voice (+).
 
-Also, you can write anything else.
+> Also, you can write anything else.
