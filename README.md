@@ -25,7 +25,15 @@ _Taeniurus Copyright (C) 2011 s1n4_
 
 ***
 
-### Project Taeniurus Information:
+* [Project Taeniurus Information](#Project Taeniurus Information)
+* [Stuff you should do before everything](#Stuff you should do before everything)
+* [TODO](#TODO)
+* [How to write a command](#How to write a command)
+* [How to write a process for the bot](#How to write a process for the bot)
+
+***
+
+### <a name="Project Taeniurus Information">Project Taeniurus Information</a>
 &nbsp;&nbsp;&nbsp;&nbsp;Taeniurus is an IRC bot written in the python programming language.
 
 Taeniurus is also a snake ([Orthriophis taeniurus](http://en.wikipedia.org/wiki/Orthriophis_taeniurus)).
@@ -42,7 +50,7 @@ I DO NOT take any blames on harms to your computer etc.**
 
 ***
 
-### Stuff you should do before everything:
+### <a name="Stuff you should do before everything">Stuff you should do before everything</a>
 &nbsp;&nbsp;&nbsp;&nbsp;Before running it you should change something in the taeniurus.cfg file, otherwise it will connect to the default server and join the default channel which are irc.freenode.net and #xprous
 
 ![taeniurus.cfg](http://ubuntuone.com/3ejammcytt9Y7iWbQTHhVD)
@@ -93,7 +101,7 @@ Please note that there is an access level per command/user, there are `oper` and
 
 ***
 
-### How to write a command
+### <a name="How to write a command">How to write a command</a>
 &nbsp;&nbsp;&nbsp;&nbsp;As you've seen the above, there is a command to add your own command, but you should know some of variables which exist.
 
     arg, nick, user, Wjoined, window = irc.process(data)
@@ -127,7 +135,7 @@ _Also, you can write anything else._
 
 ***
 
-### How to write a process for the bot
+### <a name="How to write a process for the bot">How to write a process for the bot</a>
 
 &nbsp;&nbsp;&nbsp;&nbsp;As I've already explain in the [TODO](#TODO) section, there is a command to add your own process.
 
@@ -140,3 +148,5 @@ Now I will edit the process tw from the irc:
 
     !delproc tw
     !addproc tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
+
+_**I hope it's useful to you!**_
