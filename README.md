@@ -62,7 +62,7 @@ Please note that there is an access level per command/user, there are `oper` and
 
 ***
 
-### TODO
+### <a name="TODO">TODO</a>
 &nbsp;&nbsp;&nbsp;&nbsp;There are several commands and I'll explain them.
 
 `!quote`, As it's recognizable, it works like `/quote` in irc clients which sends a raw data to the network without doing anything else.
@@ -98,11 +98,14 @@ Please note that there is an access level per command/user, there are `oper` and
 
     arg, nick, user, Wjoined, window = irc.process(data)
 
-`arg`, A string variable to storing logs (have a look at `process.cfg` file and the `[log]` section for more information), and something else.
+`arg`, A string variable to storing logs and something else.
 
-`args`, Which is a list variable to recognize commands and their arguments, for instance: `!bach echo "hello"`. `args[0]` would be the command `!bash`, `args[1]` would be `echo` and `args[2]` would be `"hello"` as well, in this example.
+    [log]
+    code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime('%H:%M')+' <'+nick+'> '+arg+'\n'); log.close()
 
-Also, a important thing to write a command is the variable `args`.
+`args`, Which is a list variable to recognize commands and their arguments, for instance: `!bach echo "hello"`. args[0] would be the command `!bash`, args[1] would be `echo` and args[2] would be `"hello"` as well, in this example.
+
+Also, an important thing to write a command is the variable args.
 
 `nick`, The nick of that who is talking on the channel/to the bot.
 
@@ -124,16 +127,16 @@ _Also, you can write anything else._
 
 ***
 
-### How to write a job process
+### How to write a process for the bot
 
-&nbsp;&nbsp;&nbsp;&nbsp;As I've already explain in the section TODO, there is a command to add your own process.
+&nbsp;&nbsp;&nbsp;&nbsp;As I've already explain in the <a href="#TODO">TODO</a> section, there is a command to add your own process.
 
 To understanding it, I recommend getting a look at the following example.
 
     [tw]
     code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)
 
-Now I will edit the process `tw`:
+Now I will edit the process tw from the irc:
 
     !delproc tw
     !addproc tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
