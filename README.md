@@ -134,5 +134,6 @@ To understanding it, I recommend getting a look at the following example.
     code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)
 
 Now I will edit the process `tw`:
+
     !delproc tw
     !addproc tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
