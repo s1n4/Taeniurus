@@ -48,6 +48,12 @@ def Daemon(pidfile) :
 		exit()
 
 
+def DetectUser():
+	if os.getenv('USERNAME') == 'root' :
+		print 'DO NOT RUN IT AS ROOT!'
+		exit(1)
+
+
 def Header(server, port) :
 	print r'''
 ___________                        .__
@@ -183,7 +189,7 @@ def main() :
 		except :
 			raise Error(data, logspath)
 
-
+DetectUser()
 main()
 
 #EOF
