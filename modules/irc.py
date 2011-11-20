@@ -149,7 +149,7 @@ class IRC :
 				else :
 					window = 'taeniurus'
 
-				arg = arg[arg.find(' :')+2:]
+				arg = arg[arg.find(' :')+2:-1]
 
 		elif args[1] == N :
 			try :
