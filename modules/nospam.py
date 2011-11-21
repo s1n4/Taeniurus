@@ -5,6 +5,7 @@
 #No Spam Module to detecing spammer
 
 def DetectSpammer(*spam) :
+	if not spam[0] or not spam[1] : return False; exit(0)
 	spam = ' '.join(spam)
 	KickSpammer = False
 
