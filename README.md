@@ -82,7 +82,7 @@ Please note that there is an access level per command/user, which are `oper` and
 
 `!cguser`; To change the username which is stored in the _taeniurus.cfg_ file.
 
-`!passwd`; To change the password which is stored in the _taeniurus.cfg_ file, password will encrypt with the md5 hash algorithm.
+`!passwd`; To change the password which is stored in the _taeniurus.cfg_ file, password will be encrypted with the md5 hash algorithm.
 
 `!show_cmds`; To see all commands.
 
