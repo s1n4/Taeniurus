@@ -23,3 +23,8 @@
 !reload_confs; To reload all configuration files.
 
 !bash; To do a shell command from the irc, It will show you output of the command as well.
+
+!help; To see the contents of the TODO file.
+
+!opers; To see nick of those who are identified for the bot as an operator.
+
