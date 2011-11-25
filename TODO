@@ -10,7 +10,7 @@
 
 !cguser; To change the username which is stored in the taeniurus.cfg file.
 
-!passwd; To change the password which is stored in the taeniurus.cfg file, password will encrypt with the md5 hash algorithm.
+!passwd; To change the password which is stored in the taeniurus.cfg file, password will be encrypted with the md5 hash algorithm.
 
 !show_cmds; To see all commands.
 
