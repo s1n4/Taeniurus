@@ -8,7 +8,7 @@
 
 ***
 
-&nbsp;&nbsp;&nbsp;&nbsp;Hello, This is a project with the name Taeniurus.
+&nbsp;&nbsp;&nbsp;&nbsp;Hello, This is a project with the name of **Taeniurus**.
 
 An irc bot that you can configure it or anything else you'd like to use (writing your own commands etc).
 
@@ -72,29 +72,33 @@ Please note that there is an access level per command/user, which are `oper` and
 
 `!quote`, As it's recognizable, it works like `/quote` in irc clients, It sends a raw data to the network without doing anything else.
 
-`!addcmd`, It lets you to write your own command which will be added into the _cmds.cfg_ file.
+`!addcmd`; It lets you to write your own command which will be added into the _cmds.cfg_ file.
 
-`!delcmd`, You will be able to delete the command you want to.
+`!delcmd`; You will be able to delete the command you want to.
 
-`!addproc`, You can add your own process for when irc is running.
+`!addproc`; You can add your own process for when irc is running.
 
-`!delproc`, You can delete the process which is stored in the _process.cfg_ file.
+`!delproc`; You can delete the process which is stored in the _process.cfg_ file.
 
-`!cguser`, To change the username which is stored in the _taeniurus.cfg_ file.
+`!cguser`; To change the username which is stored in the _taeniurus.cfg_ file.
 
-`!passwd`, To change the password which is stored in the _taeniurus.cfg_ file, password will encrypt with the md5 hash algorithm.
+`!passwd`; To change the password which is stored in the _taeniurus.cfg_ file, password will encrypt with the md5 hash algorithm.
 
-`!show_cmds`, To see all commands.
+`!show_cmds`; To see all commands.
 
-`!show_procs`, To see all processes.
+`!show_procs`; To see all processes.
 
-`!pid`, It will show you its pid.
+`!pid`; It will show you its pid.
 
-`!killop`, To kill a bot operator who is identified for the bot (`!killop nickname`).
+`!killop`; To kill a bot operator who is identified for the bot (`!killop nickname`).
 
-`!reload_confs`, To reload all configuration files.
+`!reload_confs`; To reload all configuration files.
 
-`!bash`, To do a shell command from the irc, It will show you output of the command as well.
+`!bash`; To do a shell command from the irc, It will show you output of the command as well.
+
+`!help`; To see the contents of the TODO file.
+
+`!opers`; To see nick of those who are identified for the bot as an operator.
 
 ***
 
