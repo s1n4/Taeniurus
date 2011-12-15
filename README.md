@@ -106,13 +106,15 @@ Please note that there is an access level per command/user, which are `oper` and
 &nbsp;&nbsp;&nbsp;&nbsp;As you've seen the [TODO](#TODO) section, there is a command to add your own command, but you should know some of variables which exist.
 
 ```python
-arg, nick, user, Wjoined, window = irc.process(data)```
+arg, nick, user, Wjoined, window = irc.process(data)
+```
 
 `arg`, A string variable to storing logs and something else.
 
 ```ini
 [log]
-code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime('%H:%M')+' <'+nick+'> '+arg+'\n'); log.close()```
+code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime('%H:%M')+' <'+nick+'> '+arg+'\n'); log.close()
+```
 
 `args`, A list variable to recognize commands and their arguments, for instance: `!bash echo "hello"`. args[0] would be the command `!bash`, args[1] would be `echo` and args[2] would be `"hello"` as well, in this instance.
 
