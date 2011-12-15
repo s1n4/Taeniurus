@@ -1,4 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+
+#Project: Taeniurus irc bot  https://github.com/s1n4/Taeniurus
+#Twitter module for the Taeniurus bot
 
 import json, urllib
 

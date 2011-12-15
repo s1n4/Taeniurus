@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-#Filename: nospam.py
-#Author: s1n4
-#Project: Taeniurus
-#No Spam Module to detecing spammer
+
+#Project: Taeniurus irc bot  https://github.com/s1n4/Taeniurus
+#No Spam module to detecing spammer
 
 def DetectSpammer(*spam) :
 	if not spam[0] or not spam[1] : return False; exit(0)

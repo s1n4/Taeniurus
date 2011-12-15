@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+
+#Project: Taeniurus irc bot  https://github.com/s1n4/Taeniurus
+#RSS module for the Taeniurus bot to parsing the tumblr blog's rss
+
 from xml.dom import minidom
 import urllib
 

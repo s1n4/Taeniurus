@@ -1,17 +1,17 @@
-#!/usr/bin/python
-#Filename: irc.py
-#Author: s1n4
-#Project: Taeniurus
-#IRC Module
+#!/usr/bin/env python
+
+#Project: Taeniurus https://github.com/s1n4/Taeniurus
+#IRC module
 
 import ConfigParser, re, socket, time
 
 class IRC :
-	P = 'PRIVMSG'
-	N = 'NOTICE'
-	K = 'KICK'
-	J = 'JOIN'
-	I = 'INVITE'
+	table = {
+		'P' : 'PRIVMSG',
+		'N' : 'NOTICE',
+		'K' : 'KICK',
+		'J' : 'JOIN',
+		'I' : 'INVITE'}
 
 	def __init__(self) :
 		conf = ConfigParser.ConfigParser()
@@ -28,7 +28,7 @@ class IRC :
 
 
 	def chmode(self, mode) :
-		#this works like /mode but for a channel not user
+		#this works like /mode for a channel.
 		socket.send('MODE %s %s\r\n' % (self.channel, mode))
 
 
@@ -44,7 +44,7 @@ class IRC :
 
 
 	def knock(self, socket=None) :
-		#this works such as /knock in irc clients
+		#this works like /knock in irc clients
 		self.socket.send('knock %s\r\n' % self.channel)
 
 
@@ -70,11 +70,11 @@ class IRC :
 				else :
 					nicklist.append(nick)
 
-			return nicklist #this line returns a list of users which the bot is on.
+			return nicklist #this line returns a list of users who are on a channel.
 
 
 	def nickname(self, data) :
-		#this function retuens nick of that who is talking on the channel.
+		#this function retuens nick of that who is talking on the channel/to the bot.
 		if not data : 
 			exit()
 		data = data.replace(':', '').split()
@@ -99,27 +99,21 @@ class IRC :
 
 
 	def pong(self, data) :
-		#this is a game between the bot and network for staying up on irc network.
+		#this is a game between the bot and the irc network to staying up.
 		self.socket.send('PONG %s\r\n' % data)
 
 
 	def pm(self, msg, to=None) :
-		#this works such as /msg in irc clients.
+		#this works like /msg in irc clients.
 		if to == None :
 			to = self.channel
 		self.socket.send('PRIVMSG %s :%s\r\n' % (to, msg))
 
 
 	def process(self, data) :
-		#this is for processing datas on the main code's bot.
+		#this will process datas.
 		if not data :
 			exit()
-
-		P = self.P
-		N = self.N
-		K = self.K
-		J = self.J
-		I = self.I
 
 		From    = None
 		arg     = None
@@ -132,8 +126,8 @@ class IRC :
 		if args[0] == 'PING' :
 			self.pong(args[1])
 
-		elif args[1] == P or args[1] == J :
-			if args[1] == J : 
+		elif args[1] == self.table['P'] or args[1] == self.table['J'] :
+			if args[1] == self.table['J'] : 
 				Wjoined = True
 				self.channel = args[2] if args[2][0] == '#' else args[2][1:]
 
@@ -141,37 +135,37 @@ class IRC :
 			vhost = user[user.find('@'):]
 			del user; user = nick + vhost
 
-			if args[1] == P :
+			if args[1] == self.table['P'] :
 				arg = re.search('(?<=PRIVMSG ).*', data).group()
 				if arg[0] == '#' :
 					self.channel = arg[:arg.find(' ')]
 					window = arg[:arg.find(' ')]
 				else :
-					window = 'taeniurus'
+					window = self.nickname(data)
 
 				arg = arg[arg.find(' :')+2:-1]
 
-		elif args[1] == N :
+		elif args[1] == self.table['N'] :
 			try :
 				RNotice = re.search('(?<=NOTICE ' + self.mynick + ' :).*', data).group()
 			except :
 				pass
 			
-		elif args[1] == K and args[3] == self.mynick :
-			self.join(self.socket, args[2]) #args[2] is name of the channel bot is on, (in this line)
+		elif args[1] == self.table['K'] and args[3] == self.mynick :
+			self.join(self.socket, args[2]) #args[2] would be the name of the channel (in this line)
 
-		elif args[1] == I and args[2] == self.mynick :
+		elif args[1] == self.table['I'] and args[2] == self.mynick :
 			self.join(self.socket, args[3])
 
 		del data
 		return arg, nick, user, Wjoined, window
-		#this returns arg (it's everything that a user send on the channel), nick (nick of a user which is speaking on the channel)
-		#user (nick@hostname of a user which is speaking on the channel), Wjoined (Who Joined, if this variable be True, this means 
-		#a user has joined on the channel), window (name of channel or its bot a user is talking to)
+		#this returns arg (it's everything that a user sends on the channel), nick (nick of a user which is speaking on the channel)
+		#user (nick@hostname of a user who is speaking on the channel), Wjoined (Who Joined, if this variable is being True, this means 
+		#a user has joined on the channel), window (name of channel or nick of a user)
 
 
 	def quit(self, qmsg=None) :
-		#this workds such as /quit in irc clients
+		#this works like /quit in irc clients
 		if not qmsg :
 			qmsg = 'Leaving'
 		self.socket.send('QUIT :%s\r\n' % qmsg)
@@ -185,12 +179,12 @@ class IRC :
 
 
 	def voice(self, nick) :
-		#this gives voice mode such as /voice in irc clients
+		#this gives voice mode (like /voice in irc clients)
 		self.socket.send('MODE %s +v %s\r\n' % (self.channel, nick))
 
 
 	def whois(self, nick) :
-		#this returns a list variable of nick you've whoised
+		#this returns a list variable of nicks.
 		self.socket.send('WHOIS %s\r\n' % nick)
 		data = self.socket.recv(1024)
 		whoislst = []
@@ -213,8 +207,8 @@ class IRC :
 
 
 	def connect(self, socket=None, server=None, channel=None) :
-		#this is for connecting the bot to the server you putted the address into main config file
-		#and join channel you want
+		#this connects the bot to the server that you putted its address into the main config file.
+		#and joins the channel which is placed in the main config file.
 		self.socket.connect((self.server, self.port))
 		self.socket.send('NICK %s\r\n' % self.mynick)
 		self.socket.send('USER %s %s %s :%s\r\n' % (self.uname, self.uname, self.server, self.rname))
@@ -225,7 +219,7 @@ class IRC :
 				self.socket.send('PONG %s\r\n' % data.split()[1])
 
 			if 'Nickname is already in use' in data :
-				#when nick of your bot is already in use, this changes nick of the bot to the current nick + -num
+				#this changes nick of the bot to the current nick + -num, for when the nick of the bot is already in use.
 				for c in xrange(1, 1000) :
 					newnick = self.mynick + '-' + str(c)
 					self.socket.send('NICK %s\r\n' % newnick)
@@ -235,7 +229,7 @@ class IRC :
 						break
 
 			if 'End of' in data :
-				#It will be identified for NickServ if you've putted the nickserv password into config file
+				#It will be identified for NickServ if you've putted the nickserv password into the main config file.
 				if self.password :
 					time.sleep(1)
 					self.pm('IDENTIFY %s' % self.password, 'NickServ')
