@@ -105,12 +105,14 @@ Please note that there is an access level per command/user, which are `oper` and
 ### <a name="How to write a command">How to write a command</a>
 &nbsp;&nbsp;&nbsp;&nbsp;As you've seen the [TODO](#TODO) section, there is a command to add your own command, but you should know some of variables which exist.
 
-    arg, nick, user, Wjoined, window = irc.process(data)
+```python
+arg, nick, user, Wjoined, window = irc.process(data)```
 
 `arg`, A string variable to storing logs and something else.
 
-    [log]
-    code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime('%H:%M')+' <'+nick+'> '+arg+'\n'); log.close()
+```ini
+[log]
+code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime('%H:%M')+' <'+nick+'> '+arg+'\n'); log.close()```
 
 `args`, A list variable to recognize commands and their arguments, for instance: `!bash echo "hello"`. args[0] would be the command `!bash`, args[1] would be `echo` and args[2] would be `"hello"` as well, in this instance.
 
@@ -146,8 +148,8 @@ It will give nickname a mode on the channel which is voice (+).
 To understanding it, I recommend getting a look at the following example.
 
 ```ini
-    [tw]
-    code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)```
+[tw]
+code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)```
 
 Now I will edit the process _tw_ from the irc:
 
