@@ -64,8 +64,8 @@ ___________                        .__
                 \/      \/      \/                               \/  IRC Bot
 
 Developer:    s1n4 (s1n4@live.com)
-Ideas by:    arda7an, sdk, hamid rostami
-License:    GPLv3
+Ideas by:     arda7an, sdk, hamid rostami
+License:      GPLv3
 '''
     print '\rConnecting to %s:%d ' % (server, port),
     for c in xrange(30) :
@@ -117,11 +117,11 @@ def main() :
     MainConf()
     opers = {}
     mainconf, process, cmds = (ConfigParser.RawConfigParser(), ConfigParser.RawConfigParser(), ConfigParser.RawConfigParser())
-        mainconf._file, process._file, cmds._file = ('taeniurus.cfg', 'process.cfg', 'cmds.cfg')
+    mainconf._file, process._file, cmds._file = ('taeniurus.cfg', 'process.cfg', 'cmds.cfg')
     mainconf.read(mainconf._file)
     process.read(process._file)
     cmds.read(cmds._file)
-        pidfile = mainconf.get('info', 'pid file')
+    pidfile = mainconf.get('info', 'pid file')
     logspath = mainconf.get('info', 'logs path')
     irc = IRC()
     bgproc = Process(target=Header, args=(irc.server, irc.port,))

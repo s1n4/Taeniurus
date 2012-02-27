@@ -29,15 +29,15 @@ def DetectSpammer(*spam) :
         tmp.close()
 
 
-           spam_tmp, counter = TmpRead()
+    spam_tmp, counter = TmpRead()
+        
+    if spam == spam_tmp :
+        counter += 1
 
-           if spam == spam_tmp :
-               counter += 1
-
-               if counter == 5 :
+        if counter == 5 :
             KickSpammer = True
             counter = 0
-
+                
     else :
         counter = 0
 
