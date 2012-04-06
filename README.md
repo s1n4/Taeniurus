@@ -10,6 +10,12 @@ Taeniurus is also a snake ([Orthriophis taeniurus](http://en.wikipedia.org/wiki/
 python 2.6 or 2.7
 
 
+### Use
+
+```bash
+$ ./taeniurus.py
+```
+
 ### License
 
 It's licensed under the GPLv3.
