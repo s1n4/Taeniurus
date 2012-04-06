@@ -4,19 +4,21 @@ An irc bot that you can configure it or anything else you'd like to use (writing
 
 Taeniurus is also a snake ([Orthriophis taeniurus](http://en.wikipedia.org/wiki/Orthriophis_taeniurus)).
 
+The name is chosen because I really like snakes.
 
-### Requirement
+
+## Requirement
 
 python 2.6 or 2.7
 
 
-### Use
+## Use
 
 ```bash
 $ ./taeniurus.py
 ```
 
-### License
+## License
 
 It's licensed under the GPLv3.
 
