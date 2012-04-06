@@ -1,0 +1,29 @@
+!quote - As it's recognizable, it works like `/quote` in irc clients, It sends a raw data to the network without doing anything else.
+
+!addcmd - It lets you to write your own command that will be added into the cmds.cfg file.
+
+!delcmd - It allows you to delete the command you want to.
+
+!addproc - You can add your own process for when irc is running.
+
+!delproc - It allows you to delete the process that is stored in the _process.cfg_ file.
+
+!cguser - To change the username that is stored in the _taeniurus.cfg_ file.
+
+!passwd - To change the password that is stored in the _taeniurus.cfg_ file, password will be encrypted with the md5 hash algorithm.
+
+!show_cmds - It lists all existing commands.
+
+!show_procs - It lists all existing processes.
+
+!pid - It will show you its pid.
+
+!killop - To kill a bot operator who is identified for the bot (`!killop nickname`).
+
+!reload_confs - It allows you to reload all configuration files.
+
+!bash - It performs a shell command from the irc, It will show you output of the command as well.
+
+!help - It lists the contents of the _commands_ file.
+
+!opers - It allows you to see nick of those who are identified for the bot as an operator.
