@@ -17,14 +17,14 @@ class IRC:
         conf = ConfigParser.ConfigParser()
         conf.read('taeniurus.cfg')
         
-        self.socket   = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.mynick   = conf.get('info', 'nick')
-        self.uname    = conf.get('info', 'uname')
-        self.rname    = conf.get('info', 'realname')
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.mynick = conf.get('info', 'nick')
+        self.uname = conf.get('info', 'uname')
+        self.rname = conf.get('info', 'realname')
         self.password = conf.get('info', 'password')
-        self.server   = conf.get('info', 'server')
-        self.port     = conf.getint('info', 'port')
-        self.channel  = conf.get('info', 'channel')
+        self.server = conf.get('info', 'server')
+        self.port = conf.getint('info', 'port')
+        self.channel = conf.get('info', 'channel')
 
 
     def chmode(self, mode):
@@ -40,7 +40,7 @@ class IRC:
         #this works like /kick in irc clients
         #e.g. kick(user, 'reason')
         if not reason: reason = nick
-        self.socket.send('KICK %s %s:%s\r\n' % (self.channel, nick, reason))
+        self.socket.send('KICK %s %s :%s\r\n' % (self.channel, nick, reason))
 
 
     def knock(self, socket=None):
@@ -75,7 +75,7 @@ class IRC:
 
     def nickname(self, data):
         #this function retuens nick of that who is talking on the channel/to the bot.
-        if not data: 
+        if not data:
             exit()
         data = data.replace(':', '').split()
         return data[0][:data[0].find('!')]
@@ -85,7 +85,7 @@ class IRC:
         #this works like /notice in irc clients.
         if to == None:
             to = self.channel
-        self.socket.send('NOTICE %s:%s\r\n' % (to, msg))
+        self.socket.send('NOTICE %s :%s\r\n' % (to, msg))
 
 
     def op(self, nick):
@@ -95,7 +95,7 @@ class IRC:
 
     def part(self, channel, msg):
         #this works like /part in irc clients.
-        self.socket.send('PART %s:%s\r\n' % (channel, msg))
+        self.socket.send('PART %s :%s\r\n' % (channel, msg))
 
 
     def pong(self, data):
@@ -107,27 +107,27 @@ class IRC:
         #this works like /msg in irc clients.
         if to == None:
             to = self.channel
-        self.socket.send('PRIVMSG %s:%s\r\n' % (to, msg))
+        self.socket.send('PRIVMSG %s :%s\r\n' % (to, msg))
 
 
-    def process(self, data):
-        #this will process datas.
+    def parse(self, data):
+        #this parses datas.
         if not data:
             exit()
 
-        From    = None
-        arg     = None
-        user    = None
-        nick    = self.nickname(data)
+        From = None
+        arg = None
+        user = None
+        nick = self.nickname(data)
         Wjoined = None
-        window  = None
-        args    = data.split()
+        window = None
+        args = data.split()
 
         if args[0] == 'PING':
             self.pong(args[1])
 
         elif args[1] == self.table['P'] or args[1] == self.table['J']:
-            if args[1] == self.table['J']: 
+            if args[1] == self.table['J']:
                 Wjoined = True
                 self.channel = args[2] if args[2][0] == '#' else args[2][1:]
 
@@ -143,11 +143,11 @@ class IRC:
                 else:
                     window = self.nickname(data)
 
-                arg = arg[arg.find(':')+2:-1]
+                arg = arg[arg.find(' :')+2:-1]
 
         elif args[1] == self.table['N']:
             try:
-                RNotice = re.search('(?<=NOTICE ' + self.mynick + ':).*', data).group()
+                RNotice = re.search('(?<=NOTICE ' + self.mynick + ' :).*', data).group()
             except:
                 pass
             
@@ -168,7 +168,7 @@ class IRC:
         #this works like /quit in irc clients
         if not qmsg:
             qmsg = 'Leaving'
-        self.socket.send('QUIT:%s\r\n' % qmsg)
+        self.socket.send('QUIT :%s\r\n' % qmsg)
 
 
     def umode(self, mode, nick):
@@ -211,7 +211,7 @@ class IRC:
         #and joins the channel which is placed in the main config file.
         self.socket.connect((self.server, self.port))
         self.socket.send('NICK %s\r\n' % self.mynick)
-        self.socket.send('USER %s %s %s:%s\r\n' % (self.uname, self.uname, self.server, self.rname))
+        self.socket.send('USER %s %s %s :%s\r\n' % (self.uname, self.uname, self.server, self.rname))
 
         while True:
             data = self.socket.recv(1024)

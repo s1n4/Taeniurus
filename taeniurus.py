@@ -101,7 +101,8 @@ def MainConf():
         conf.add_section('info')
         for option in info_items:
             conf.set('info', option, info_items[option])
-            SaveConf(conf)
+
+        SaveConf(conf)
 
 
     if conf.has_section('oper'):
@@ -146,7 +147,7 @@ def main():
     while True:
         try:
             data = client.recv(1024)
-            arg, nick, user, Wjoined, window = irc.tasks(data)
+            arg, nick, user, Wjoined, window = irc.parse(data)
             for section in tasks.sections():
                 if tasks.get(section, 'code'):
                     try:
