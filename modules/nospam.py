@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #Project: Taeniurus irc bot  https://github.com/s1n4/Taeniurus
-#No Spam module to detecing spammer
+#No Spam module for detecing spammer
 
 def DetectSpammer(*spam):
     if not spam[0] or not spam[1]: return False; exit(0)
