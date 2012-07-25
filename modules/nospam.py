@@ -3,24 +3,24 @@
 #Project: Taeniurus irc bot  https://github.com/s1n4/Taeniurus
 #No Spam module to detecing spammer
 
-def DetectSpammer(*spam) :
-    if not spam[0] or not spam[1] : return False; exit(0)
+def DetectSpammer(*spam):
+    if not spam[0] or not spam[1]: return False; exit(0)
     spam = ' '.join(spam)
     KickSpammer = False
 
-    def TmpRead() :
-        try :
+    def TmpRead():
+        try:
             tmp = file('/tmp/DetectS-taeniurus').read()
             spam_tmp = tmp.splitlines()[0]
             counter = tmp.splitlines()[1]
 
-        except IOError :
+        except IOError:
             spam_tmp = ''
             counter = '0'
 
         return spam_tmp, int(counter)
 
-    def TmpWrite(c) :
+    def TmpWrite(c):
         tmp = file('/tmp/DetectS-taeniurus', 'w')
         tmp.write(spam)
         tmp.write('\n')
@@ -31,14 +31,14 @@ def DetectSpammer(*spam) :
 
     spam_tmp, counter = TmpRead()
         
-    if spam == spam_tmp :
+    if spam == spam_tmp:
         counter += 1
 
-        if counter == 5 :
+        if counter == 5:
             KickSpammer = True
             counter = 0
                 
-    else :
+    else:
         counter = 0
 
     TmpWrite(counter)
