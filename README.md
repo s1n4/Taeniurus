@@ -27,7 +27,7 @@ See [LICENSE](Taeniurus/tree/master/LICENSE) file for more information.
 
 ## Guide
 
-### Stuff you should do before everything
+### Stuff you should do before anything
 
 Before running it you should change something in the _taeniurus.cfg_ file, otherwise it will connect to the default server and join the default channel which are irc.freenode.net and #xprous
 
@@ -42,7 +42,7 @@ The default user and password are `admin`.
 When you're identified, you can change the user and the password with the `!cguser` and the `!passwd` commands:
 `!cguser newuser`, `!passwd newpassword`
 
-Taeniurus takes commands from irc and finds the code of the command in the _cmds.cfg_ file then, it will run the code with _exec_ statement.
+Taeniurus checks commands from irc and executes their codes that are stored in _cmds.cfg_ file.
 
 > It works with the ConfigParser module that is used to parsing configuration files like _.cfg, .ini_
 
@@ -60,17 +60,17 @@ There are several commands as the default with the following description.
 
 `!delcmd`; It allows you to delete the command you want to.
 
-`!addproc`; You can add your own process for when irc is running.
+`!addtask`; You can add a task for the bot irc.
 
-`!delproc`; It allows you to delete the process that is stored in the _process.cfg_ file.
+`!deltask`; It allows you to delete a task that is stored in the _tasks.cfg_ file.
 
 `!cguser`; To change the username that is stored in the _taeniurus.cfg_ file.
 
-`!passwd`; To change the password that is stored in the _taeniurus.cfg_ file, password will be encrypted with the md5 hash algorithm.
+`!passwd`; To change the password that is stored in the _taeniurus.cfg_ file.
 
 `!show_cmds`; It lists all existing commands.
 
-`!show_procs`; It lists all existing processes.
+`!show_tasks`; It lists all existing tasks.
 
 `!pid`; It will show you its pid.
 
@@ -78,20 +78,20 @@ There are several commands as the default with the following description.
 
 `!reload_confs`; It allows you to reload all configuration files.
 
-`!bash`; It performs a shell command from the irc, It will show you output of the command as well.
+`!bash`; It performs a shell command from the irc, it will show you output of the command as well.
 
 `!help`; It lists the contents of the _commands_ file.
 
-`!opers`; It allows you to see nick of those who are identified for the bot as an operator.
+`!opers`; It allows you to see nick of those who are identified for the bot as operator.
 
 
 
-### How to write a command
+### How to add a command
 
 There is a command to add your own command, but you must know some of variables that are existed.
 
 ```python
-arg, nick, user, Wjoined, window = irc.process(data)
+arg, nick, user, Wjoined, window = irc.parse(data)
 ```
 
 `arg`, A string variable to storing logs and something else.
@@ -125,22 +125,22 @@ It will set a vioce (+) mode for nickname on the channel.
 
 
 
-### How to write a process for the bot
+### How to add a task
 
-There is a command to add your own process.
+There is a command to add a task.
 
-To understanding it, I recommend taking a look at the following instance.
+Take a loot at the followig instance to figure it out.
 
 ```ini
 [tw]
 code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)
 ```
 
-Now I will edit the process _tw_ from the irc:
+I want to edit the task _tw_ from the irc:
 
 ```
-!delproc tw
-!addproc tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
+!deltask tw
+!addtask tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
 ```
 
 

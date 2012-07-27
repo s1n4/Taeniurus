@@ -1,29 +1,29 @@
-!quote - As it's recognizable, it works like `/quote` in irc clients, It sends a raw data to the network without doing anything else.
+!quote         As it's recognizable, it works like /quote in irc clients, It sends a raw data to the network without doing anything else.
 
-!addcmd - It lets you to write your own command that will be added into the cmds.cfg file.
+!addcmd        It lets you to write your own command that will be added into the cmds.cfg file.
 
-!delcmd - It allows you to delete the command you want to.
+!delcmd        It allows you to delete the command you want to.
 
-!addproc - You can add your own process for when irc is running.
+!addtask       You can add a task for the bot irc.
 
-!delproc - It allows you to delete the process that is stored in the _process.cfg_ file.
+!deltask       It allows you to delete a task that is stored in the tasks.cfg file.
 
-!cguser - To change the username that is stored in the _taeniurus.cfg_ file.
+!cguser        To change the username that is stored in the taeniurus.cfg file.
 
-!passwd - To change the password that is stored in the _taeniurus.cfg_ file, password will be encrypted with the md5 hash algorithm.
+!passwd        To change the password that is stored in the taeniurus.cfg file.
 
-!show_cmds - It lists all existing commands.
+!showcmds      It lists all existing commands.
 
-!show_procs - It lists all existing processes.
+!showtasks     It lists all existing tasks.
 
-!pid - It will show you its pid.
+!pid           It will show you its pid.
 
-!killop - To kill a bot operator who is identified for the bot (`!killop nickname`).
+!killop        To kill a bot operator who is identified for the bot (!killop nickname).
 
-!reload_confs - It allows you to reload all configuration files.
+!reloadconfs   It allows you to reload all configuration files.
 
-!bash - It performs a shell command from the irc, It will show you output of the command as well.
+!bash          It performs a shell command from the irc, it will show you output of the command as well.
 
-!help - It lists the contents of the _commands_ file.
+!help          It lists the contents of the commands file.
 
-!opers - It allows you to see nick of those who are identified for the bot as an operator.
+!opers         It allows you to see nick of those who are identified for the bot as operator.
