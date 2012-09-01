@@ -3,7 +3,10 @@
 #Project: Taeniurus https://github.com/s1n4/Taeniurus
 #IRC module
 
-import ConfigParser, re, socket, time
+import ConfigParser
+import re
+import socket
+import time
 
 class IRC:
     table = {
@@ -16,7 +19,7 @@ class IRC:
     def __init__(self):
         conf = ConfigParser.ConfigParser()
         conf.read('taeniurus.cfg')
-        
+
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mynick = conf.get('info', 'nick')
         self.uname = conf.get('info', 'uname')
@@ -150,7 +153,7 @@ class IRC:
                 RNotice = re.search('(?<=NOTICE ' + self.mynick + ' :).*', data).group()
             except:
                 pass
-            
+
         elif args[1] == self.table['K'] and args[3] == self.mynick:
             self.join(self.socket, args[2]) #args[2] would be the name of the channel (in this line)
 
@@ -160,7 +163,7 @@ class IRC:
         del data
         return arg, nick, user, Wjoined, window
         #this returns arg (it's everything that a user sends on the channel), nick (nick of a user which is speaking on the channel)
-        #user (nick@hostname of a user who is speaking on the channel), Wjoined (Who Joined, if this variable is being True, this means 
+        #user (nick@hostname of a user who is speaking on the channel), Wjoined (Who Joined, if this variable is being True, this means
         #a user has joined on the channel), window (name of channel or nick of a user)
 
 
@@ -240,4 +243,3 @@ class IRC:
                 break
 
         return self.socket
-

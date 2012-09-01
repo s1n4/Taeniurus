@@ -3,7 +3,8 @@
 #Project: Taeniurus irc bot  https://github.com/s1n4/Taeniurus
 #Twitter module for the Taeniurus bot
 
-import json, urllib
+import json
+import urllib
 
 
 def tweet(username=None):
@@ -12,4 +13,3 @@ def tweet(username=None):
     twitterUrl = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=%s&include_rts=true' % username
     jsonFile = urllib.urlopen(twitterUrl)
     return username + ': ' + json.load(jsonFile)[0]['text']
-
