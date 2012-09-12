@@ -122,7 +122,7 @@ class IRC:
         arg = None
         user = None
         nick = self.nickname(data)
-        Wjoined = None
+        joined = None
         window = None
         args = data.split()
 
@@ -131,7 +131,7 @@ class IRC:
 
         elif args[1] == self.table['P'] or args[1] == self.table['J']:
             if args[1] == self.table['J']:
-                Wjoined = True
+                joined = True
                 self.channel = args[2] if args[2][0] == '#' else args[2][1:]
 
             user = args[0]
@@ -161,9 +161,9 @@ class IRC:
             self.join(self.socket, args[3])
 
         del data
-        return arg, nick, user, Wjoined, window
+        return arg, nick, user, joined, window
         #this returns arg (it's everything that a user sends on the channel), nick (nick of a user which is speaking on the channel)
-        #user (nick@hostname of a user who is speaking on the channel), Wjoined (Who Joined, if this variable is being True, this means
+        #user (nick@hostname of a user who is speaking on the channel), joined (if this variable is True, it means
         #a user has joined on the channel), window (name of channel or nick of a user)
 
 

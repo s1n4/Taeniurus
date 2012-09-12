@@ -36,12 +36,12 @@ class Error(Exception):
     def __str__(self):
         return "Oops!, something went wrong, errors are logged in the '%s'errors.log file" % self.path
 
-def Bash(command):
+def bash(command):
     return os.popen(command).read()
 
 
-def Daemon(pidfile):
-    #This attachs the process to background
+def daemon(pidfile):
+    #This puts the process to background
     #and writes the pid in a file with the name 'taeniurus.pid' (as default)
     pid = os.fork()
     if pid != 0:
@@ -52,19 +52,19 @@ def Daemon(pidfile):
         exit()
 
 
-def DetectUser():
+def detect_user():
     if os.getenv('USERNAME') == 'root':
         print 'DO NOT RUN IT AS ROOT!'
         exit(1)
 
 
-def Header(server, port):
+def header(server, port):
     print r'''
 ___________                        .__
 \__    ___/_____     ____    ____  |__| __ __ _______  __ __  ______
   |    |   \__  \  _/ __ \  /    \ |  ||  |  \\_  __ \|  |  \/  ___/
   |    |    / __ \_\  ___/ |   |  \|  ||  |  / |  | \/|  |  /\___ \
-  |____|   (____  / \___  >|___|  /|__||____/  |__|   |____//____  > 
+  |____|   (____  / \___  >|___|  /|__||____/  |__|   |____//____  >
                 \/      \/      \/                               \/  IRC Bot
 
 Developer:    s1n4 (contact@s1n4.com)
@@ -78,12 +78,12 @@ License:      GPLv3
         time.sleep(1)
 
 
-def SaveConf(conf):
+def save_conf(conf):
     with file(conf._file, 'w') as configfile:
         conf.write(configfile)
 
 
-def MainConf():
+def main_conf():
     conf = ConfigParser.ConfigParser()
     conf._file = 'taeniurus.cfg'
     conf.read('taeniurus.cfg')
@@ -95,31 +95,31 @@ def MainConf():
         for option in info_items:
             if not conf.has_option('info', option) or not conf.get('info', option):
                 conf.set('info', option, info_items[option])
-                SaveConf(conf)
+                save_conf(conf)
 
     else:
         conf.add_section('info')
         for option in info_items:
             conf.set('info', option, info_items[option])
 
-        SaveConf(conf)
+        save_conf(conf)
 
 
     if conf.has_section('oper'):
         for option in oper_items:
             if not conf.has_option('oper', option) or not conf.get('oper', option):
                 conf.set('oper', option, oper_items[option])
-                SaveConf(conf)
+                save_conf(conf)
 
     else:
         conf.add_section('oper')
         for option in oper_items:
             conf.set('oper', option, oper_items[option])
-            SaveConf(conf)
+            save_conf(conf)
 
 
 def main():
-    MainConf()
+    main_conf()
     opers = {}
     mainconf, tasks, cmds = (ConfigParser.RawConfigParser(), ConfigParser.RawConfigParser(), ConfigParser.RawConfigParser())
     mainconf._file, tasks._file, cmds._file = ('taeniurus.cfg', 'tasks.cfg', 'cmds.cfg')
@@ -129,7 +129,7 @@ def main():
     pidfile = mainconf.get('info', 'pid file')
     logspath = mainconf.get('info', 'logs path')
     irc = IRC()
-    bgproc = Process(target=Header, args=(irc.server, irc.port,))
+    bgproc = Process(target=header, args=(irc.server, irc.port,))
     bgproc.start()
     client = irc.connect()
 
@@ -139,15 +139,15 @@ def main():
     print '\nConnected successfully!'
     print 'Connection: \033[1m\033[92m%s:%d\033[0m' % (irc.server, irc.port)
     print 'Channel: \033[1m\033[92m%s\033[0m' % irc.channel
-    Daemon(pidfile)
+    daemon(pidfile)
 
-    AcDen = 'irc.notice("Access Is Denied!", nick)'
-    DoneMsg = 'irc.notice("It\'s Done.", nick)'
+    acc_den = 'irc.notice("Access is denied!", nick)'
+    done_msg = 'irc.notice("Done.", nick)'
 
     while True:
         try:
             data = client.recv(1024)
-            arg, nick, user, Wjoined, window = irc.parse(data)
+            arg, nick, user, joined, window = irc.parse(data)
             for section in tasks.sections():
                 if tasks.get(section, 'code'):
                     try:
@@ -177,7 +177,7 @@ def main():
 
                     if args[0] in cmds.sections():
                         if cmds.get(args[0], 'access') == 'oper' and user not in opers.values():
-                            exec AcDen
+                            exec acc_den
                             continue
 
                         exec cmds.get(args[0], 'code')
@@ -195,7 +195,7 @@ def main():
         except:
             raise Error(data, logspath)
 
-DetectUser()
+detect_user()
 main()
 
 #EOF

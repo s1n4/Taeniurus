@@ -91,7 +91,7 @@ There are several commands as the default with the following description.
 There is a command to add your own command, but you must know some of variables that are existed.
 
 ```python
-arg, nick, user, Wjoined, window = irc.parse(data)
+arg, nick, user, joined, window = irc.parse(data)
 ```
 
 `arg`, A string variable to storing logs and something else.
@@ -110,7 +110,7 @@ code = if arg : log = file(logspath+window+'.log', 'a'); log.write(time.strftime
 
 `user`, It contains: `nick@hostname` of that who is talking.
 
-`Wjoined`, A boolean variable (True or False), It will be True for when a user has joined the channel.
+`joined`, A boolean variable (True or False), It will be True for when a user has joined the channel.
 
 
 #### Now you will be able to add a command.
@@ -133,14 +133,14 @@ Take a loot at the followig instance to figure it out.
 
 ```ini
 [tw]
-code = if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)
+code = if joined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick)
 ```
 
 I want to edit the task _tw_ from the irc:
 
 ```
 !deltask tw
-!addtask tw if Wjoined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
+!addtask tw if joined and nick != irc.mynick : irc.notice('Hey %s, Welcome to %s!' % (nick, irc.channel), nick); irc.voice(nick)
 ```
 
 
