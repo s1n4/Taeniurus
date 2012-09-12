@@ -17,7 +17,7 @@
 
 #Taeniurus  Copyright (C) 2011  s1n4
 
-from modules.irc import IRC
+from lib.irc import IRC
 from multiprocessing import Process
 import ConfigParser
 import hashlib
